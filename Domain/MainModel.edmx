@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ExchangeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tbl_user">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="EmailConfirmationCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="MobileConfirmationCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="NationalCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FamilyName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailConfirmationDatetime" Type="datetime" Nullable="false" />
+          <Property Name="MobileConfirmationDatetime" Type="datetime" Nullable="false" />
+          <Property Name="EmailConfirmationDatetimeRequest" Type="datetime" Nullable="false" />
+          <Property Name="MobileConfirmationDatetimeRequest" Type="datetime" Nullable="false" />
+          <Property Name="IsDisable" Type="bit" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Wallet">
+          <Key>
+            <PropertyRef Name="WalletId" />
+          </Key>
+          <Property Name="WalletId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CoinType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PublicAddress" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="PublicKey" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="PrivateKey" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="MemoCode" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="FK_UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Value" Type="decimal" Precision="19" Scale="8" Nullable="false" />
+          <Property Name="CreateDatetime" Type="datetime" Nullable="false" />
+          <Property Name="Enable" Type="bit" Nullable="false" />
+          <Property Name="LastUpdateDatetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Tbl_Wallet_Tbl_user">
+          <End Role="Tbl_user" Type="Self.Tbl_user" Multiplicity="1" />
+          <End Role="Tbl_Wallet" Type="Self.Tbl_Wallet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_user">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Tbl_Wallet">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExchangeModelStoreContainer">
+          <EntitySet Name="Tbl_user" EntityType="Self.Tbl_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Wallet" EntityType="Self.Tbl_Wallet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Tbl_Wallet_Tbl_user" Association="Self.FK_Tbl_Wallet_Tbl_user">
+            <End Role="Tbl_user" EntitySet="Tbl_user" />
+            <End Role="Tbl_Wallet" EntitySet="Tbl_Wallet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ExchangeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Tbl_user">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mobile" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailConfirmationCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MobileConfirmationCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NationalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FamilyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailConfirmationDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MobileConfirmationDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EmailConfirmationDatetimeRequest" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MobileConfirmationDatetimeRequest" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDisable" Type="Boolean" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tbl_Wallet" Relationship="Self.FK_Tbl_Wallet_Tbl_user" FromRole="Tbl_user" ToRole="Tbl_Wallet" />
+        </EntityType>
+        <EntityType Name="Tbl_Wallet">
+          <Key>
+            <PropertyRef Name="WalletId" />
+          </Key>
+          <Property Name="WalletId" Type="Guid" Nullable="false" />
+          <Property Name="CoinType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PublicAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PublicKey" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PrivateKey" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MemoCode" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FK_UserId" Type="Guid" Nullable="false" />
+          <Property Name="Value" Type="Decimal" Precision="19" Scale="8" Nullable="false" />
+          <Property Name="CreateDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Enable" Type="Boolean" Nullable="false" />
+          <Property Name="LastUpdateDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Tbl_user" Relationship="Self.FK_Tbl_Wallet_Tbl_user" FromRole="Tbl_Wallet" ToRole="Tbl_user" />
+        </EntityType>
+        <Association Name="FK_Tbl_Wallet_Tbl_user">
+          <End Role="Tbl_user" Type="Self.Tbl_user" Multiplicity="1" />
+          <End Role="Tbl_Wallet" Type="Self.Tbl_Wallet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_user">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Tbl_Wallet">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExchangeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tbl_user" EntityType="Self.Tbl_user" />
+          <EntitySet Name="Tbl_Wallet" EntityType="Self.Tbl_Wallet" />
+          <AssociationSet Name="FK_Tbl_Wallet_Tbl_user" Association="Self.FK_Tbl_Wallet_Tbl_user">
+            <End Role="Tbl_user" EntitySet="Tbl_user" />
+            <End Role="Tbl_Wallet" EntitySet="Tbl_Wallet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ExchangeModelStoreContainer" CdmEntityContainer="ExchangeEntities">
+          <EntitySetMapping Name="Tbl_user">
+            <EntityTypeMapping TypeName="ExchangeModel.Tbl_user">
+              <MappingFragment StoreEntitySet="Tbl_user">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="EmailConfirmationCode" ColumnName="EmailConfirmationCode" />
+                <ScalarProperty Name="MobileConfirmationCode" ColumnName="MobileConfirmationCode" />
+                <ScalarProperty Name="NationalCode" ColumnName="NationalCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FamilyName" ColumnName="FamilyName" />
+                <ScalarProperty Name="EmailConfirmationDatetime" ColumnName="EmailConfirmationDatetime" />
+                <ScalarProperty Name="MobileConfirmationDatetime" ColumnName="MobileConfirmationDatetime" />
+                <ScalarProperty Name="EmailConfirmationDatetimeRequest" ColumnName="EmailConfirmationDatetimeRequest" />
+                <ScalarProperty Name="MobileConfirmationDatetimeRequest" ColumnName="MobileConfirmationDatetimeRequest" />
+                <ScalarProperty Name="IsDisable" ColumnName="IsDisable" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Wallet">
+            <EntityTypeMapping TypeName="ExchangeModel.Tbl_Wallet">
+              <MappingFragment StoreEntitySet="Tbl_Wallet">
+                <ScalarProperty Name="WalletId" ColumnName="WalletId" />
+                <ScalarProperty Name="CoinType" ColumnName="CoinType" />
+                <ScalarProperty Name="PublicAddress" ColumnName="PublicAddress" />
+                <ScalarProperty Name="PublicKey" ColumnName="PublicKey" />
+                <ScalarProperty Name="PrivateKey" ColumnName="PrivateKey" />
+                <ScalarProperty Name="MemoCode" ColumnName="MemoCode" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="CreateDatetime" ColumnName="CreateDatetime" />
+                <ScalarProperty Name="Enable" ColumnName="Enable" />
+                <ScalarProperty Name="LastUpdateDatetime" ColumnName="LastUpdateDatetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

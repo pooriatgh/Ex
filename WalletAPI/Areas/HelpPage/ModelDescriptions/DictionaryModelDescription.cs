@@ -1,0 +1,6 @@
+namespace WalletAPI.Areas.HelpPage.ModelDescriptions
+{
+    public class DictionaryModelDescription : KeyValuePairModelDescription
+    {
+    }
+}
