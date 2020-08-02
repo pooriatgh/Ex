@@ -52,9 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExchangeContext.cs" />
-    <Compile Include="IUserRepository.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserRepository.cs" />
+    <Compile Include="WalletRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ExchangeC\Domain\Domain.csproj">

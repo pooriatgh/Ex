@@ -4511,6 +4511,20 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ExchangeC\Application\Application.csproj">
+      <Project>{68d02620-8d3e-4f3f-8160-3539a436d520}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExchangeC\Domain\Domain.csproj">
+      <Project>{d61b3c2a-9db5-47a2-8df6-1a5db2a407e4}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{c5db1a8e-dc0c-4286-9cdd-5c48269e06e9}</Project>
+      <Name>Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

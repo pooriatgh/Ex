@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class UserRepository : IUserRepository, IDisposable
+    public class UserRepository : IRepository<User>, IDisposable
     {
         private ExchangeContext context;
 
@@ -17,32 +18,31 @@ namespace Repository
             this.context = context;
         }
 
-        public IEnumerable<Tbl_user> GetUsers()
+        public IEnumerable<User> Get()
         {
             return context.Users.ToList();
         }
 
-        public Tbl_user GetUserByID(int id)
+        public User GetByID(Guid id)
         {
             return context.Users.Find(id);
         }
 
-        public void InsertUser(Tbl_user User)
+        public void Insert(User entity)
         {
-            context.Users.Add(User);
+            context.Users.Add(entity);
         }
 
-        public void DeleteUser(int UserID)
+        public void Delete(Guid id)
         {
-            Tbl_user User = context.Users.Find(UserID);
+            User User = context.Users.Find(id);
             context.Users.Remove(User);
         }
 
-        public void UpdateUser(Tbl_user User)
+        public void Update(User entity)
         {
-            context.Entry(User).State = EntityState.Modified;
+            context.Entry(entity).State = EntityState.Modified;
         }
-
         public void Save()
         {
             context.SaveChanges();
